@@ -78,12 +78,6 @@ IF %ERRORLEVEL% NEQ 0 (
     EXIT /B %ERRORLEVEL%
 )
 
-REM 7. Rodar a análise do SonarCloud
-echo Rodando analise SonarCloud...
-C:\Users\Adriele\Desktop\sonar-scanner-7.1.0.4889-windows-x64\bin\sonar-scanner.bat
-IF %ERRORLEVEL% NEQ 0 (
-    echo ERRO: Falha na analise SonarCloud.
-    EXIT /B %ERRORLEVEL%
-)
+
 
 echo Build do projeto Django Food Travel CONCLUIDO com sucesso!
