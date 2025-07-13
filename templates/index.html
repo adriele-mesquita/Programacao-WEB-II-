@@ -1,0 +1,507 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <link rel="stylesheet" href="{% static 'estilo.css' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/logo1.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/logo1.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/logo1.png' %}">
+    <link rel="manifest" href="{% static 'assets/logo1.png' %}">
+    <link rel="mask-icon" href="{% static 'assets/logo1.png' %}" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="site de delivery de comida">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <title>Food Travel</title>
+</head>
+
+<body>
+
+    <section id="inicio">
+        <nav>
+            <div class="logo">
+                <img src="{% static 'assets/logo1.png' %}">
+            </div>
+            <ul>
+                <li><a href="#inicio">Início</a></li>
+                <li><a href="#Informações">Informações</a></li>
+                <li><a href="#Cardápio">Cardápio</a></li>
+                <li><a href="#Horário">Horário</a></li>
+                <li><a href="#Avaliações">Avaliações</a></li>
+                <li><a href="#pedido">Pedido</a></li>
+            </ul>
+            <div class="icones">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <i class="fa-solid fa-heart"></i>
+                <i class="fa-solid fa-cart-shopping"></i>
+                <a href="{% url 'core:login' %}"><i class="fa-solid fa-user"></i></a>
+            </div>
+        </nav>
+    </section>
+
+    <div class="começa">
+        <div class="começo">
+            <div class="texto">
+                <h1> Uma viagem <span>de sabores</span></h1>
+
+                <p>Em nosso restaurante, embarque em uma viagem
+                    de sabores que transporta seu paladar para
+                    lugares ainda não explorados. Cada prato é
+                    uma viagem culinária cuidadosamente preparada
+                    para oferecer uma experiência deliciosa e única.
+                    Descubra o que torna nossa cozinha tão especial e
+                    explore um cardápio repleto de surpresas gastronômicas.
+                    Sinta-se convidado a mergulhar nos sabores e aromas que tornam
+                    cada refeição uma experiência inesquecível.
+                </p>
+            </div>
+
+            <div class="começo_imgem">
+                <img src="{% static 'assets/main_img.png' %}">
+            </div>
+        </div>
+    </div>
+
+    <div class="Cardápio" id="Cardápio">
+        <h1>Nosso<span>Cardápio</span></h1>
+
+        <div class="caixas">
+            <div class="box">
+
+                <div class="img1">
+                    <img src="{% static 'assets/images (3).jpg' %}">
+                </div>
+
+                <div class="botao">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+
+                <div class="info">
+                    <h2> Hamburguer</h2>
+                    <p>
+                        Variedades de Hamburgueres artesanais, ingredientes selecionados e orgânicos.
+                    </p>
+                    <h3>A partir de R$ 33,00</h3>
+
+                    <a href="{% url 'core:catalogo' categoria=1 %}" class="botao-peça peça"> PEÇA AGORA</a>
+                </div>
+
+            </div>
+
+            <div class="box">
+
+                <div class="img1">
+                    <img src="{% static 'assets/bolinho.jpg' %}">
+                </div>
+
+                <div class="botao">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+
+                <div class="info">
+                    <h2>Comida de boteco</h2>
+                    <p>
+                        A melhor comida de boteco você só encontra aqui.
+                    </p>
+                    <h3>A partir de R$ 20,00</h3>
+
+                    <a href="{% url 'core:catalogo' categoria=2 %}" class="botao-peça peça"> PEÇA AGORA</a>
+                </div>
+
+            </div>
+
+            <div class="box">
+
+                <div class="img1">
+                    <img src="{% static 'assets/gallary_5.jpg' %}">
+                </div>
+
+                <div class="botao">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+                <div class="info">
+                    <h2>Pizzas</h2>
+                    <p>
+                        Pizzas com ingredientes frescos, massa fininha e crocante.
+                    </p>
+                    <h3>A partir de R$40,00</h3>
+
+                    <a href="{% url 'core:catalogo' categoria=3 %}" class="botao-peça peça"> PEÇA AGORA</a>
+                </div>
+
+            </div>
+
+            <div class="box">
+
+                <div class="img1">
+                    <img src="{% static 'assets/images (7).jpg' %}">
+                </div>
+
+                <div class="botao">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+
+                <div class="info">
+                    <h2>Espetinhos</h2>
+                    <p>
+                        Váriedades e carnes selecionadas você encontra nos nossos espetinhos, temos espetos simples
+                        e completos.
+                    </p>
+                    <h3>A partir de R$ 12,00</h3>
+
+                    <a href="{% url 'core:catalogo' categoria=4 %}" class="botao-peça peça"> PEÇA AGORA</a>
+                </div>
+
+            </div>
+
+            <div class="box">
+
+                <div class="img1">
+                    <img src="{% static 'assets/images (23).jpg' %}">
+                </div>
+
+                <div class="botao">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+
+                <div class="info">
+                    <h2>Massas</h2>
+                    <p>
+                        Massas frescas deliciosas e com ingredientes orgânicos.
+                    </p>
+                    <h3>A partir de R$ 15,00</h3>
+
+                    <a href="{% url 'core:catalogo' categoria=5 %}" class="botao-peça peça"> PEÇA AGORA</a>
+                </div>
+
+            </div>
+
+            <div class="box">
+
+                <div class="img1">
+                    <img src="{% static 'assets/ice_cream.jpg' %}">
+                </div>
+
+                <div class="botao">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+
+                <div class="info">
+                    <h2>Sobremesas</h2>
+                    <p>
+                        Sobremesas geladas e quentes, tradicionais e gourmets, incríveis para você se deliciar.
+                    </p>
+                    <h3>A partir de R$ 10,00</h3>
+
+                    <a href="{% url 'core:catalogo' categoria=6 %}" class="botao-peça peça"> PEÇA AGORA</a>
+                </div>
+
+            </div>
+
+            <div class="box">
+
+                <div class="img1">
+                    <img src="{% static 'assets/cocktail-gelado-vermelho-em-cima-da-mesa.jpg' %}">
+                </div>
+
+                <div class="botao">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+
+                <div class="info">
+                    <h2>Drinks</h2>
+                    <p>
+                        Os drinks mais váriados drinks você só encontra aqui.
+                    </p>
+                    <h3>A partir de R$ 13,00</h3>
+
+                    <a href="{% url 'core:catalogo' categoria=7 %}" class="botao-peça peça"> PEÇA AGORA</a>
+                </div>
+
+            </div>
+
+            <div class="box">
+
+                <div class="img1">
+                    <img src="{% static 'assets/cerveja.jpg' %}">
+                </div>
+
+                <div class="botao">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+
+                <div class="info">
+                    <h2>Cervejas artesanais</h2>
+                    <p>
+                        Os melhores rótulos, com grandes váriedades.
+                    </p>
+                    <h3>A partir de R$ 05,00</h3>
+
+                    <a href="{% url 'core:catalogo' categoria=8 %}" class="botao-peça peça"> PEÇA AGORA</a>
+                </div>
+
+            </div>
+
+            <div class="box">
+
+                <div class="img1">
+                    <img src="{% static 'assets/download (7).jpg' %}">
+                </div>
+
+                <div class="botao">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+
+                <div class="info">
+                    <h2>Refrigerantes</h2>
+                    <p>
+                        As bebidas mais geladas e refrescantes, você só encontrará aqui.
+                    </p>
+                    <h3>A partir de R$ 04,00</h3>
+
+                    <a href="{% url 'core:catalogo' categoria=9 %}" class="botao-peça peça"> PEÇA AGORA</a>
+                </div>
+
+            </div>
+
+            <div class="box">
+
+                <div class="img1">
+                    <img src="{% static 'assets/suco laranja.jpg' %}">
+                </div>
+
+                <div class="botao">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+
+                <div class="info">
+                    <h2>Sucos</h2>
+                    <p>
+                        Sucos Naturais de Váriados <br>sabores.
+                    </p>
+                    <h3>A partir de R$ 07,00</h3>
+
+                    <a href="{% url 'core:catalogo' categoria=10 %}" class="botao-peça peça"> PEÇA AGORA</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="Horário" id="Horário">
+        <h1>Horário <span>de Funcionamento</span></h1>
+
+        <ul type="none" class="lista">
+            <li>
+                <h3>SEGUNDA</h3>
+                <p><span class="texto-marrom">FECHADO</span></p>
+            </li>
+            <li>
+                <h3>TERÇA</h3>
+                <p>09:00 - 22:00</p>
+            </li>
+            <li>
+                <h3>QUARTA</h3>
+                <p>09:00 - 22:00</p>
+            </li>
+            <li>
+                <h3>QUINTA</h3>
+                <p>09:00 - 22:00</p>
+            </li>
+            <li>
+                <h3>SEXTA</h3>
+                <p>09:00 - 22:00</p>
+            </li>
+            <li>
+                <h3>SÁBADO</h3>
+                <p>09:00 - 22:00</p>
+            </li>
+            <li>
+                <h3>DOMINGO</h3>
+                <div></div>
+                <p>12:00 - 22:00</p>
+            </li>
+        </ul>
+    </div>
+
+    <div class="Avaliações" id="Avaliações">
+        <h1>Avaliações<span> dos Clientes</span></h1>
+
+        <div class="avac">
+            <div class="ava1">
+
+                <div class=" ava2">
+                    <img src="{% static 'assets/bey.jpg' %}">
+                </div>
+                <div class="comentario">
+                    <h2 class=" Nome">Beyonce</h2>
+
+                    <div class="icone_coment">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <div class="rede_social">
+                        <i class="fa-brands fa-facebook-f"></i>
+                        <i class="fa-brands fa-instagram"></i>
+                        <i class="fa-brands fa-twitter"></i>
+                        <i class="fa-brands fa-linkedin-in"></i>
+                    </div>
+                    <p>
+                        Ótimo atendimento, tudo perfeito.Vim com minha irmã Solange e adoramos os pratos, os drinks
+                        são deliciosos.
+                    </p>
+                </div>
+
+            </div>
+            <div class="ava1">
+
+                <div class=" ava2">
+                    <img src="{% static 'assets/gd.jpg' %}">
+                </div>
+                <div class="comentario">
+                    <h2 class=" Nome">GD</h2>
+
+                    <div class="icone_coment">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-stroke"></i>
+                    </div>
+                    <div class="rede_social">
+                        <i class="fa-brands fa-facebook-f"></i>
+                        <i class="fa-brands fa-instagram"></i>
+                        <i class="fa-brands fa-twitter"></i>
+                        <i class="fa-brands fa-linkedin-in"></i>
+                    </div>
+                    <p>
+                        Ótimo atendimento eu e minha Amiga CL adoramos tudo, vamos voltar mais vezes
+                        enchemos a cara e foram super pacientes conosco.
+                    </p>
+                </div>
+
+            </div>
+            <div class="ava1">
+
+                <div class=" ava2">
+                    <img src="{% static 'assets/mingi.jpg' %}">
+                </div>
+                <div class="comentario">
+                    <h2 class=" Nome">Mingi</h2>
+
+                    <div class="icone_coment">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-stroke"></i>
+                    </div>
+                    <div class="rede_social">
+                        <i class="fa-brands fa-facebook-f"></i>
+                        <i class="fa-brands fa-instagram"></i>
+                        <i class="fa-brands fa-twitter"></i>
+                        <i class="fa-brands fa-linkedin-in"></i>
+                    </div>
+                    <p>
+                        Adorei a comida, pedi um Hamburguer é uma delíca, a mandioca frita então nem se fala.
+                    </p>
+                </div>
+
+            </div>
+            <div class="ava1">
+
+                <div class=" ava2">
+                    <img src="{% static 'assets/riri.jpg' %}">
+                </div>
+                <div class="comentario">
+                    <h2 class=" Nome">Rihanna</h2>
+
+                    <div class="icone_coment">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-stroke"></i>
+                    </div>
+                    <div class="rede_social">
+                        <i class="fa-brands fa-facebook-f"></i>
+                        <i class="fa-brands fa-instagram"></i>
+                        <i class="fa-brands fa-twitter"></i>
+                        <i class="fa-brands fa-linkedin-in"></i>
+                    </div>
+                    <p>
+                        Muito bom para vir com a familia, lugar aconchegante e um ambiente calmo.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="INFORMAÇÃO" id="Informações">
+        <div class="seção_informação">
+            <div class="imagem_informação">
+                <img src="{% static 'assets/Food-Plate.png' %}" alt="Imagem de comida">
+            </div>
+
+            <div class="texto_informação">
+                <h1>Sobre <span>Nós</span></h1>
+                <h3>Quem somos?</h3>
+                <p>
+                    Nossa Missão: No Food Travel, queremos usar a comida para conectar as pessoas com o mundo.
+                    A comida é uma linguagem universal que une culturas e celebra a diversidade, acreditamos. Queremos
+                    tornar a culinária mundial acessível a todos,
+                    levando até você uma ampla gama de sabores de várias partes do mundo.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="contatos">
+        <h1>Venha nos fazer uma visita</h1>
+
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3744.156545749294!2d-55.15647568507871!3d-17.98687708764049!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x937c87c0a96976a5%3A0xf6956f4d54d5b2c7!2sIFMT%20-%20Campus%20Campo%20Verde!5e0!3m2!1spt-BR!2sbr!4v1678829994017!5m2!1spt-BR!2sbr"
+            width="450" height="400" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+        <div class="cont-text">
+            <h2>Ou se preferir</h2>
+            <p>
+            <ul type="none" class="lista-cont">
+                <li>
+                    <a
+                        href="https://wa.me/5566999758609/?text=Fa%C3%A7a%20seu%20pedido%20ou%20fa%C3%A7a%20a%20sua%20reserva"><img
+                            src="{% static 'assets/whatsapp icon.png' %}"></a>
+                    (66) 99975-8609
+                </li>
+
+                <li>
+                    <a href="tel://556634192471"><img src="{% static 'assets/wicon tele2.png' %}"></a>
+                    (66) 3419-2471
+                </li>
+            </ul>
+            </p>
+        </div>
+    </div>
+
+
+    <div class="rodape">
+        <p>© Food Travel - Todos os direitos reservados</p>
+        <p>Desenvolvido por <span>"<a href="https://www.linkedin.com/in/adriele-mesquita-340817238">Adriele
+                    Mesquita</a>,
+                <a href="https://br.linkedin.com/in/douglas-tadeu-a3a090205">Douglas Tadeu</a>,
+                <a href="https://www.linkedin.com/in/natanael-santos-932523237/">Natanael Silva</a>"</span></p>
+        <a class="a" href="#inicio"><img src="{% static 'assets/seta.PNG' %}" alt="Seta"></a>
+    </div>
+</body>
+
+</html>

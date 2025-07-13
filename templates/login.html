@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+ 
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'estilocadastro.css' %}">
+    <meta charset="UTF-8">
+    <title>Food TRAVEL</title>
+    
+</head>
+
+<body>
+    <section id="inicio">
+        <nav>
+            <div class="logo">
+                <img src="{% static 'assets/logo1.png' %}">
+            </div>
+            <ul>
+                <li><a href="{% url 'core:index' %}#inicio">Início</a></li>
+                <li><a href="{% url 'core:index' %}#Informações">Informações</a></li>
+                <li><a href="{% url 'core:index' %}#Cardápio">Cardápio</a></li>
+                <li><a href="{% url 'core:index' %}#Horário">Horário</a></li>
+                <li><a href="{% url 'core:index' %}#Avaliações">Avaliações</a></li>
+                <li><a href="{% url 'core:index' %}#pedido">Pedido</a></li>
+            </ul>
+            <div class="icones">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <i class="fa-solid fa-heart"></i>
+                <i class="fa-solid fa-cart-shopping"></i>
+                <a href="{% url 'core:login' %}"><i class="fa-solid fa-user"></i></a>
+            </div>
+        </nav>
+    </section>
+
+    <div class="hero">
+        <div class="form-box">
+            <div class="button-box">
+                <div id="btn"></div>
+                <button type="button" class="toggle-btn" onclick="login()">Login</button>
+                <button type="button" class="toggle-btn" onclick="register()">Registre</button>
+            </div>
+            <div class="social-icons">
+                <img src="{% static 'assets/fb.png' %}">
+                <img src="{% static 'assets/tw.png' %}">
+                <img src="{% static 'assets/gp.png' %}">
+            </div>
+            <form id="login" class="input-group">
+                <input type="text" class="input-field" placeholder="User" required>
+                <input type="text" class="input-field" placeholder="Senha" required>
+                <div class="check-box"><input type="checkbox" class="check-box"><span>Lembre minha senha</span></div>
+               <button type="submit" class="submit-btn">Entrar</button>
+            </form>
+            <form id="register" class="input-group">
+                <input type="text" class="input-field" placeholder="User"
+                required>
+                <input type="email" class="input-field" placeholder="E-mail"
+                required>
+                <input type="text" class="input-field" placeholder="Senha"
+                required>
+                <div class="check-box"><input type="checkbox" class="check-box"><span> Concordo com os termos & condições</span></div>
+               <button type="submit" class="submit-btn">Registre</button>
+            </form>
+        </div>
+               
+    </div>
+
+    <div class="rodape">
+        <p>© Food Travel - Todos os direitos reservados</p>
+        <p>Desenvolvido por <span>"<a href="https://www.linkedin.com/in/adriele-mesquita-340817238">Adriele
+                    Mesquita</a>,
+                <a href="https://br.linkedin.com/in/douglas-tadeu-a3a090205">Douglas Tadeu</a>,
+                <a href="https://www.linkedin.com/in/natanael-santos-932523237/">Natanael Silva</a>"</span></p>
+    </div>
+
+    <script>
+        var x = document.getElementById("login");
+        var y = document.getElementById("register");
+        var z = document.getElementById("btn");
+
+        function register(){
+            x.style.left = "-400px";
+            y.style.left = "50px";
+            z.style.left = "110px";
+        }
+        function login(){
+            x.style.left = "50px";
+            y.style.left = "450px";
+            z.style.left = "0px";
+        }
+    </script>
+    
+</body>
+</html>
