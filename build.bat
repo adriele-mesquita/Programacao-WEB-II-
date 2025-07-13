@@ -1,11 +1,11 @@
 @echo off
-REM 
+REM Script de build automático para Jenkins (Windows)
 echo Iniciando processo de build do projeto Django Food Travel...
 
-REM 
-REM 
+REM 1. Navegar para o diretório do projeto 
+REM CD %WORKSPACE%
 
-REM
+REM 2. Ativar o ambiente virtual
 echo Ativando ambiente virtual...
 call venv\Scripts\activate.bat
 IF %ERRORLEVEL% NEQ 0 (
@@ -13,7 +13,7 @@ IF %ERRORLEVEL% NEQ 0 (
     EXIT /B %ERRORLEVEL%
 )
 
-REM 
+REM 3. Instalar/Atualizar dependências Python
 echo Instalando/Atualizando dependencias Python...
 pip install -r requirements.txt
 IF %ERRORLEVEL% NEQ 0 (
@@ -21,7 +21,7 @@ IF %ERRORLEVEL% NEQ 0 (
     EXIT /B %ERRORLEVEL%
 )
 
-REM 
+REM 4. Aplicar migrações do banco de dados
 echo Aplicando migracoes do banco de dados...
 python manage.py migrate
 IF %ERRORLEVEL% NEQ 0 (
@@ -29,7 +29,7 @@ IF %ERRORLEVEL% NEQ 0 (
     EXIT /B %ERRORLEVEL%
 )
 
-REM 
+REM 5. Coletar arquivos estáticos (importante para deploy)
 echo Coletando arquivos estaticos...
 python manage.py collectstatic --noinput
 IF %ERRORLEVEL% NEQ 0 (
@@ -37,11 +37,19 @@ IF %ERRORLEVEL% NEQ 0 (
     EXIT /B %ERRORLEVEL%
 )
 
-REM 
+REM 6. Rodar testes (se houver, adicione seus testes Django aqui)
 echo Rodando testes Django...
 python manage.py test
 IF %ERRORLEVEL% NEQ 0 (
     echo ERRO: Testes falharam.
+    EXIT /B %ERRORLEVEL%
+)
+
+REM 7. Rodar a análise do SonarCloud (ADICIONAR/AJUSTAR ESTA LINHA)
+echo Rodando analise SonarCloud...
+C:\Users\Adriele\Desktop\sonar-scanner-7.1.0.4889-windows-x64\bin\sonar-scanner.bat
+IF %ERRORLEVEL% NEQ 0 (
+    echo ERRO: Falha na analise SonarCloud.
     EXIT /B %ERRORLEVEL%
 )
 
