@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmar Exclusão - Food Travel</title>
+    <link rel="stylesheet" href="{% static 'estilo.css' %}">
+    <link rel="stylesheet" href="{% static 'catalogo.css' %}">
+    <style>
+        body { background-color: #f0f0f0; }
+        .container {
+            max-width: 500px;
+            margin: 150px auto 50px auto;
+            background-color: #fff;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+        h1 { color: #A40F0F; margin-bottom: 20px; }
+        p { margin-bottom: 20px; }
+        .actions button, .actions a {
+            display: inline-block;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 0 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .actions button {
+            background-color: #c01e1e;
+            color: white;
+            border: none;
+        }
+        .actions button:hover { background-color: #A40F0F; }
+        .actions a {
+            background-color: #555;
+            color: white;
+        }
+        .actions a:hover { background-color: #333; }
+        .rodape { margin-top: 50px; }
+    </style>
+</head>
+<body>
+    <section id="inicio">
+        <nav>
+            <div class="logo">
+                <img src="{% static 'assets/logo1.png' %}">
+            </div>
+            <ul>
+                <li><a href="{% url 'core:index' %}#inicio">Início</a></li>
+                <li><a href="{% url 'core:index' %}#Informações">Informações</a></li>
+                <li><a href="{% url 'core:index' %}#Cardápio">Cardápio</a></li>
+                <li><a href="{% url 'core:index' %}#Horário">Horário</a></li>
+                <li><a href="{% url 'core:index' %}#Avaliações">Avaliações</a></li>
+                <li><a href="{% url 'core:pedido_list' %}">Pedidos</a></li>
+            </ul>
+            <div class="icones">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <i class="fa-solid fa-heart"></i>
+                <i class="fa-solid fa-cart-shopping"></i>
+                <a href="{% url 'core:login' %}"><i class="fa-solid fa-user"></i></a>
+            </div>
+        </nav>
+    </section>
+
+    <div class="container">
+        <h1>Confirmar Exclusão</h1>
+        <p>Tem certeza que deseja excluir a categoria "<strong>{{ categoria.nome_categoria }}</strong>"?</p>
+        <form method="post" class="actions">
+            {% csrf_token %}
+            <button type="submit">Sim, Excluir</button>
+            <a href="{% url 'core:categoria_produto_list' %}">Cancelar</a>
+        </form>
+    </div>
+
+    <div class="rodape">
+        <p>© Food Travel - Todos os direitos reservados</p>
+        <p>Desenvolvido por <span>"<a href="https://www.linkedin.com/in/adriele-mesquita-340817238">Adriele Mesquita</a>, <a href="https://br.linkedin.com/in/douglas-tadeu-a3a090205">Douglas Tadeu</a>, <a href="https://www.linkedin.com/in/natanael-santos-932523237/">Natanael Silva</a>"</span></p>
+        <a class="a" href="{% url 'core:index' %}#inicio"><img src="{% static 'assets/seta.PNG' %}" alt="Seta"></a>
+    </div>
+</body>
+</html>

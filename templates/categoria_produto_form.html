@@ -1,0 +1,113 @@
+{% load static %}
+{% load custom_filters %} {# Certifique-se de que o filtro add_class esta ativo #}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ form_title }} Categoria - Food Travel</title>
+    <link rel="stylesheet" href="{% static 'estilo.css' %}">
+    <link rel="stylesheet" href="{% static 'catalogo.css' %}">
+    <style>
+        body { background-color: #f0f0f0; }
+        .container {
+            max-width: 500px;
+            margin: 150px auto 50px auto;
+            background-color: #fff;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        h1 { color: #A40F0F; text-align: center; margin-bottom: 30px; }
+        form div { margin-bottom: 15px; }
+        form label { display: block; margin-bottom: 5px; font-weight: bold; color: #333; }
+        form .input-field {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        form select.input-field {
+            height: 40px;
+        }
+        .form-button {
+            display: inline-block;
+            background-color: #A40F0F;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        .form-button:hover { background-color: #c01e1e; }
+        .back-button {
+            display: inline-block;
+            background-color: #555;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .back-button:hover { background-color: #333; }
+        .errorlist { color: red; font-size: 0.9em; margin-top: 5px; }
+        .rodape { margin-top: 50px; }
+    </style>
+</head>
+<body>
+    <section id="inicio">
+        <nav>
+            <div class="logo">
+                <img src="{% static 'assets/logo1.png' %}">
+            </div>
+            <ul>
+                <li><a href="{% url 'core:index' %}#inicio">Início</a></li>
+                <li><a href="{% url 'core:index' %}#Informações">Informações</a></li>
+                <li><a href="{% url 'core:index' %}#Cardápio">Cardápio</a></li>
+                <li><a href="{% url 'core:index' %}#Horário">Horário</a></li>
+                <li><a href="{% url 'core:index' %}#Avaliações">Avaliações</a></li>
+                <li><a href="{% url 'core:pedido_list' %}">Pedidos</a></li>
+            </ul>
+            <div class="icones">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <i class="fa-solid fa-heart"></i>
+                <i class="fa-solid fa-cart-shopping"></i>
+                <a href="{% url 'core:login' %}"><i class="fa-solid fa-user"></i></a>
+            </div>
+        </nav>
+    </section>
+
+    <div class="container">
+        <h1>{{ form_title }} Categoria</h1>
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div>
+                    {{ field.label_tag }}
+                    {% if field.field.widget.input_type == 'select' %}
+                        {{ field|add_class:"input-field" }}
+                    {% else %}
+                        {{ field|add_class:"input-field" }}
+                    {% endif %}
+                    {% if field.help_text %}
+                        <small style="color: #666;">{{ field.help_text }}</small>
+                    {% endif %}
+                    {% for error in field.errors %}
+                        <p class="errorlist">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="form-button">Salvar</button>
+            <a href="{% url 'core:categoria_produto_list' %}" class="back-button">Cancelar</a>
+        </form>
+    </div>
+
+    <div class="rodape">
+        <p>© Food Travel - Todos os direitos reservados</p>
+        <p>Desenvolvido por <span>"<a href="https://www.linkedin.com/in/adriele-mesquita-340817238">Adriele Mesquita</a>, <a href="https://br.linkedin.com/in/douglas-tadeu-a3a090205">Douglas Tadeu</a>, <a href="https://www.linkedin.com/in/natanael-santos-932523237/">Natanael Silva</a>"</span></p>
+        <a class="a" href="{% url 'core:index' %}#inicio"><img src="{% static 'assets/seta.PNG' %}" alt="Seta"></a>
+    </div>
+</body>
+</html>

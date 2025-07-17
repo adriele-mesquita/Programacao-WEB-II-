@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Pedidos - Food Travel</title>
+    <link rel="stylesheet" href="{% static 'estilo.css' %}">
+    <link rel="stylesheet" href="{% static 'catalogo.css' %}">
+    <style>
+        body { background-color: #f0f0f0; }
+        .container {
+            max-width: 1200px;
+            margin: 150px auto 50px auto;
+            background-color: #fff;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow-x: auto; /* Para tabelas grandes em telas pequenas */
+        }
+        h1 { color: #A40F0F; text-align: center; margin-bottom: 30px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; white-space: nowrap; }
+        th { background-color: #f2f2f2; }
+        .actions a {
+            margin-right: 10px;
+            text-decoration: none;
+            color: #A40F0F;
+            font-weight: bold;
+        }
+        .actions a.edit { color: #fac031; }
+        .actions a.delete { color: #c01e1e; }
+        .add-button {
+            display: inline-block;
+            background-color: #A40F0F;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .add-button:hover { background-color: #c01e1e; }
+        .rodape { margin-top: 50px; }
+    </style>
+</head>
+<body>
+    <section id="inicio">
+        <nav>
+            <div class="logo">
+                <img src="{% static 'assets/logo1.png' %}">
+            </div>
+            <ul>
+                <li><a href="{% url 'core:index' %}#inicio">Início</a></li>
+                <li><a href="{% url 'core:index' %}#Informações">Informações</a></li>
+                <li><a href="{% url 'core:index' %}#Cardápio">Cardápio</a></li>
+                <li><a href="{% url 'core:index' %}#Horário">Horário</a></li>
+                <li><a href="{% url 'core:index' %}#Avaliações">Avaliações</a></li>
+                <li><a href="#">Pedidos</a></li> {# Este link apontará para si mesmo após o CRUD de Pedido #}
+            </ul>
+            <div class="icones">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <i class="fa-solid fa-heart"></i>
+                <i class="fa-solid fa-cart-shopping"></i>
+                <a href="{% url 'core:login' %}"><i class="fa-solid fa-user"></i></a>
+            </div>
+        </nav>
+    </section>
+
+    <div class="container">
+        <h1>Lista de Pedidos</h1>
+        <a href="{% url 'core:pedido_create' %}" class="add-button">Adicionar Novo Pedido</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Cliente</th>
+                    <th>Restaurante</th>
+                    <th>Data/Hora</th>
+                    <th>Status</th>
+                    <th>Total</th>
+                    <th>Pagamento</th>
+                    <th>Entrega</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pedido in pedidos %}
+                <tr>
+                    <td>{{ pedido.id_pedido }}</td>
+                    <td>{{ pedido.id_cliente.nome }}</td>
+                    <td>{{ pedido.id_restaurante.nome_do_restaurante }}</td>
+                    <td>{{ pedido.data_hora_pedido|date:"d/m/Y H:i:s" }}</td>
+                    <td>{{ pedido.status_pedido }}</td>
+                    <td>R$ {{ pedido.total_pedido|floatformat:2 }}</td>
+                    <td>{{ pedido.forma_pagamento }} (Troco: {{ pedido.troco|default:"N/A" }})</td>
+                    <td>{{ pedido.delivery }}</td>
+                    <td class="actions">
+                        <a href="{% url 'core:pedido_detail' pk=pedido.pk %}">Ver</a>
+                        <a href="{% url 'core:pedido_update' pk=pedido.pk %}" class="edit">Editar</a>
+                        <a href="{% url 'core:pedido_delete' pk=pedido.pk %}" class="delete">Deletar</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="9">Nenhum pedido encontrado.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="rodape">
+        <p>© Food Travel - Todos os direitos reservados</p>
+        <p>Desenvolvido por <span>"<a href="https://www.linkedin.com/in/adriele-mesquita-340817238">Adriele Mesquita</a>, <a href="https://br.linkedin.com/in/douglas-tadeu-a3a090205">Douglas Tadeu</a>, <a href="https://www.linkedin.com/in/natanael-santos-932523237/">Natanael Silva</a>"</span></p>
+        <a class="a" href="{% url 'core:index' %}#inicio"><img src="{% static 'assets/seta.PNG' %}" alt="Seta"></a>
+    </div>
+</body>
+</html>
