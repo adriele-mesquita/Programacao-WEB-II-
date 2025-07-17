@@ -1,4 +1,9 @@
-from .models import Produto, CategoriaProduto, Restaurante, Cliente, Pedido
+from django.shortcuts import get_object_or_404
+from .models import (
+    Produto, CategoriaProduto, Restaurante, Cliente, Pedido, EnderecoCliente, ItemPedido, Avaliacao, Funcionario, Pagamento 
+)
+
+
 
 class ProdutoService:
     def get_all_produtos(self):
@@ -83,7 +88,7 @@ class CategoriaProdutoService:
         categoria = self.get_categoria_by_id(categoria_id)
         if categoria:
             categoria.delete()
-            
+
 class PedidoService:
     def get_all_pedidos(self):
         return Pedido.objects.all()
@@ -104,3 +109,131 @@ class PedidoService:
         pedido = self.get_pedido_by_id(pedido_id)
         if pedido:
             pedido.delete()
+            
+    def get_all_enderecos(self):
+        return EnderecoCliente.objects.all()
+
+    def get_endereco_by_id(self, endereco_id):
+        try:
+            return EnderecoCliente.objects.get(pk=endereco_id)
+        except EnderecoCliente.DoesNotExist:
+            return None
+
+    def create_endereco(self, form):
+        return form.save()
+
+    def update_endereco(self, form):
+        return form.save()
+
+    def delete_endereco(self, endereco_id):
+        endereco = self.get_endereco_by_id(endereco_id)
+        if endereco:
+            endereco.delete()
+
+class EnderecoClienteService:
+    def get_all_enderecos(self):
+        return EnderecoCliente.objects.all()
+
+    def get_endereco_by_id(self, endereco_id):
+        try:
+            return EnderecoCliente.objects.get(pk=endereco_id)
+        except EnderecoCliente.DoesNotExist:
+            return None
+
+    def create_endereco(self, form):
+        return form.save()
+
+    def update_endereco(self, form):
+        return form.save()
+
+    def delete_endereco(self, endereco_id):
+        endereco = self.get_endereco_by_id(endereco_id)
+        if endereco:
+            endereco.delete()
+
+class ItemPedidoService:
+    def get_all_itens_pedido(self):
+        return ItemPedido.objects.all()
+
+    def get_item_pedido_by_id(self, item_pedido_id):
+        try:
+            return ItemPedido.objects.get(pk=item_pedido_id)
+        except ItemPedido.DoesNotExist:
+            return None
+
+    def create_item_pedido(self, form):
+        return form.save()
+
+    def update_item_pedido(self, form):
+        return form.save()
+
+    def delete_item_pedido(self, item_pedido_id):
+        item_pedido = self.get_item_pedido_by_id(item_pedido_id)
+        if item_pedido:
+            item_pedido.delete()
+
+class AvaliacaoService: 
+    def get_all_avaliacoes(self):
+        return Avaliacao.objects.all()
+
+    def get_avaliacao_by_id(self, avaliacao_id):
+        try:
+            return Avaliacao.objects.get(pk=avaliacao_id)
+        except Avaliacao.DoesNotExist:
+            return None
+
+    def create_avaliacao(self, form):
+        return form.save()
+
+    def update_avaliacao(self, form):
+        return form.save()
+
+    def delete_avaliacao(self, avaliacao_id):
+        avaliacao = self.get_avaliacao_by_id(avaliacao_id)
+        if avaliacao:
+            avaliacao.delete()
+
+
+class FuncionarioService:
+    def get_all_funcionarios(self):
+        return Funcionario.objects.all()
+
+    def get_funcionario_by_id(self, funcionario_id):
+        try:
+            return Funcionario.objects.get(pk=funcionario_id)
+        except Funcionario.DoesNotExist:
+            return None
+
+    def create_funcionario(self, form):
+        return form.save()
+
+    def update_funcionario(self, form):
+        return form.save()
+
+    def delete_funcionario(self, funcionario_id):
+        funcionario = self.get_funcionario_by_id(funcionario_id)
+        if funcionario:
+            funcionario.delete()
+
+class PagamentoService: # NOVO SERVIÇO PARA PAGAMENTO
+    def get_all_pagamentos(self):
+        return Pagamento.objects.all()
+
+    def get_pagamento_by_id(self, pagamento_id):
+        try:
+            return Pagamento.objects.get(pk=pagamento_id)
+        except Pagamento.DoesNotExist:
+            return None
+
+    def create_pagamento(self, form):
+        return form.save()
+
+    def update_pagamento(self, form):
+        return form.save()
+
+    def delete_pagamento(self, pagamento_id):
+        pagamento = self.get_pagamento_by_id(pagamento_id)
+        if pagamento:
+            pagamento.delete()
+
+

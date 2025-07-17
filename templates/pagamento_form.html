@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ form_title }} Categoria - Food Travel</title>
+    <title>{{ form_title }} Pagamento - Food Travel</title>
     <link rel="stylesheet" href="{% static 'estilo.css' %}">
     <link rel="stylesheet" href="{% static 'catalogo.css' %}">
     <style>
@@ -80,7 +80,7 @@
     </section>
 
     <div class="container">
-        <h1>{{ form_title }} Categoria</h1>
+        <h1>{{ form_title }} Pagamento</h1>
         <form method="post">
             {% csrf_token %}
             {% for field in form %}
@@ -100,7 +100,7 @@
                 </div>
             {% endfor %}
             <button type="submit" class="form-button">Salvar</button>
-            <a href="{% url 'core:categoria_produto_list' %}" class="back-button">Cancelar</a>
+            <a href="{% url 'core:pagamento_list' %}" class="back-button">Cancelar</a>
         </form>
     </div>
 

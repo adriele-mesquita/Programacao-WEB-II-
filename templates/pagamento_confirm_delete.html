@@ -1,11 +1,10 @@
 {% load static %}
-{% load custom_filters %} 
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ form_title }} Categoria - Food Travel</title>
+    <title>Confirmar Exclusão - Food Travel</title>
     <link rel="stylesheet" href="{% static 'estilo.css' %}">
     <link rel="stylesheet" href="{% static 'catalogo.css' %}">
     <style>
@@ -17,42 +16,30 @@
             padding: 30px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             border-radius: 8px;
+            text-align: center;
         }
-        h1 { color: #A40F0F; text-align: center; margin-bottom: 30px; }
-        form div { margin-bottom: 15px; }
-        form label { display: block; margin-bottom: 5px; font-weight: bold; color: #333; }
-        form .input-field {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        form select.input-field {
-            height: 40px;
-        }
-        .form-button {
+        h1 { color: #A40F0F; margin-bottom: 20px; }
+        p { margin-bottom: 20px; }
+        .actions button, .actions a {
             display: inline-block;
-            background-color: #A40F0F;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-right: 10px;
-        }
-        .form-button:hover { background-color: #c01e1e; }
-        .back-button {
-            display: inline-block;
-            background-color: #555;
-            color: white;
             padding: 10px 15px;
             border-radius: 5px;
             text-decoration: none;
+            margin: 0 10px;
+            cursor: pointer;
+            font-size: 16px;
         }
-        .back-button:hover { background-color: #333; }
-        .errorlist { color: red; font-size: 0.9em; margin-top: 5px; }
+        .actions button {
+            background-color: #c01e1e;
+            color: white;
+            border: none;
+        }
+        .actions button:hover { background-color: #A40F0F; }
+        .actions a {
+            background-color: #555;
+            color: white;
+        }
+        .actions a:hover { background-color: #333; }
         .rodape { margin-top: 50px; }
     </style>
 </head>
@@ -80,27 +67,12 @@
     </section>
 
     <div class="container">
-        <h1>{{ form_title }} Categoria</h1>
-        <form method="post">
+        <h1>Confirmar Exclusão</h1>
+        <p>Tem certeza que deseja excluir o pagamento #<strong>{{ pagamento.id_pagamento }}</strong>?</p>
+        <form method="post" class="actions">
             {% csrf_token %}
-            {% for field in form %}
-                <div>
-                    {{ field.label_tag }}
-                    {% if field.field.widget.input_type == 'select' %}
-                        {{ field|add_class:"input-field" }}
-                    {% else %}
-                        {{ field|add_class:"input-field" }}
-                    {% endif %}
-                    {% if field.help_text %}
-                        <small style="color: #666;">{{ field.help_text }}</small>
-                    {% endif %}
-                    {% for error in field.errors %}
-                        <p class="errorlist">{{ error }}</p>
-                    {% endfor %}
-                </div>
-            {% endfor %}
-            <button type="submit" class="form-button">Salvar</button>
-            <a href="{% url 'core:categoria_produto_list' %}" class="back-button">Cancelar</a>
+            <button type="submit">Sim, Excluir</button>
+            <a href="{% url 'core:pagamento_list' %}">Cancelar</a>
         </form>
     </div>
 

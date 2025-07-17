@@ -1,4 +1,3 @@
-# foodtravel_django/core/urls.py
 from django.urls import path
 from . import views
 
@@ -8,39 +7,54 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('login/', views.login_view, name='login'),
     path('catalogo/<int:categoria>/', views.catalogo_view, name='catalogo'),
-
-    # --- URLs para CRUD de Produto ---
     path('produtos/', views.produto_list, name='produto_list'),
     path('produtos/novo/', views.produto_create, name='produto_create'),
     path('produtos/<int:pk>/', views.produto_detail, name='produto_detail'),
     path('produtos/<int:pk>/editar/', views.produto_update, name='produto_update'),
     path('produtos/<int:pk>/deletar/', views.produto_delete, name='produto_delete'),
-
-    # --- URLs para CRUD de Cliente ---
     path('clientes/', views.cliente_list, name='cliente_list'),
     path('clientes/novo/', views.cliente_create, name='cliente_create'),
     path('clientes/<int:pk>/', views.cliente_detail, name='cliente_detail'),
     path('clientes/<int:pk>/editar/', views.cliente_update, name='cliente_update'),
     path('clientes/<int:pk>/deletar/', views.cliente_delete, name='cliente_delete'),
-
-    # --- URLs para CRUD de Restaurante ---
     path('restaurantes/', views.restaurante_list, name='restaurante_list'),
     path('restaurantes/novo/', views.restaurante_create, name='restaurante_create'),
-    path('restaurantes/<int:pk>/', views.restaurante_detail, name='restaurantes_detail'), # Erro de digitação corrigido aqui: restaurantes_detail
+    path('restaurantes/<int:pk>/', views.restaurante_detail, name='restaurantes_detail'), 
     path('restaurantes/<int:pk>/editar/', views.restaurante_update, name='restaurante_update'),
     path('restaurantes/<int:pk>/deletar/', views.restaurante_delete, name='restaurante_delete'),
-
-    # --- URLs para CRUD de CategoriaProduto ---
     path('categorias/', views.categoria_produto_list, name='categoria_produto_list'),
     path('categorias/novo/', views.categoria_produto_create, name='categoria_produto_create'),
     path('categorias/<int:pk>/', views.categoria_produto_detail, name='categoria_produto_detail'),
     path('categorias/<int:pk>/editar/', views.categoria_produto_update, name='categoria_produto_update'),
     path('categorias/<int:pk>/deletar/', views.categoria_produto_delete, name='categoria_produto_delete'),
-
-    # --- NOVAS URLs para CRUD de Pedido ---
     path('pedidos/', views.pedido_list, name='pedido_list'),
     path('pedidos/novo/', views.pedido_create, name='pedido_create'),
     path('pedidos/<int:pk>/', views.pedido_detail, name='pedido_detail'),
     path('pedidos/<int:pk>/editar/', views.pedido_update, name='pedido_update'),
     path('pedidos/<int:pk>/deletar/', views.pedido_delete, name='pedido_delete'),
+    path('enderecos/', views.endereco_cliente_list, name='endereco_cliente_list'),
+    path('enderecos/novo/', views.endereco_cliente_create, name='endereco_cliente_create'),
+    path('enderecos/<int:pk>/', views.endereco_cliente_detail, name='endereco_cliente_detail'),
+    path('enderecos/<int:pk>/editar/', views.endereco_cliente_update, name='endereco_cliente_update'),
+    path('enderecos/<int:pk>/deletar/', views.endereco_cliente_delete, name='endereco_cliente_delete'),
+    path('itens-pedido/', views.item_pedido_list, name='item_pedido_list'),
+    path('itens-pedido/novo/', views.item_pedido_create, name='item_pedido_create'),
+    path('itens-pedido/<int:pk>/', views.item_pedido_detail, name='item_pedido_detail'),
+    path('itens-pedido/<int:pk>/editar/', views.item_pedido_update, name='item_pedido_update'),
+    path('itens-pedido/<int:pk>/deletar/', views.item_pedido_delete, name='item_pedido_delete'),
+    path('avaliacoes/', views.avaliacao_list, name='avaliacao_list'),
+    path('avaliacoes/novo/', views.avaliacao_create, name='avaliacao_create'),
+    path('avaliacoes/<int:pk>/', views.avaliacao_detail, name='avaliacao_detail'),
+    path('avaliacoes/<int:pk>/editar/', views.avaliacao_update, name='avaliacao_update'),
+    path('avaliacoes/<int:pk>/deletar/', views.avaliacao_delete, name='avaliacao_delete'),
+    path('funcionarios/', views.funcionario_list, name='funcionario_list'),
+    path('funcionarios/novo/', views.funcionario_create, name='funcionario_create'),
+    path('funcionarios/<int:pk>/', views.funcionario_detail, name='funcionario_detail'),
+    path('funcionarios/<int:pk>/editar/', views.funcionario_update, name='funcionario_update'),
+    path('funcionarios/<int:pk>/deletar/', views.funcionario_delete, name='funcionario_delete'),
+    path('pagamentos/', views.pagamento_list, name='pagamento_list'),
+    path('pagamentos/novo/', views.pagamento_create, name='pagamento_create'),
+    path('pagamentos/<int:pk>/', views.pagamento_detail, name='pagamento_detail'),
+    path('pagamentos/<int:pk>/editar/', views.pagamento_update, name='pagamento_update'),
+    path('pagamentos/<int:pk>/deletar/', views.pagamento_delete, name='pagamento_delete'),
 ]

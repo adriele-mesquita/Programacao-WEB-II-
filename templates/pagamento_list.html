@@ -1,58 +1,45 @@
 {% load static %}
-{% load custom_filters %} 
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ form_title }} Categoria - Food Travel</title>
+    <title>Lista de Pagamentos - Food Travel</title>
     <link rel="stylesheet" href="{% static 'estilo.css' %}">
     <link rel="stylesheet" href="{% static 'catalogo.css' %}">
     <style>
         body { background-color: #f0f0f0; }
         .container {
-            max-width: 500px;
+            max-width: 1000px;
             margin: 150px auto 50px auto;
             background-color: #fff;
             padding: 30px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             border-radius: 8px;
+            overflow-x: auto;
         }
         h1 { color: #A40F0F; text-align: center; margin-bottom: 30px; }
-        form div { margin-bottom: 15px; }
-        form label { display: block; margin-bottom: 5px; font-weight: bold; color: #333; }
-        form .input-field {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; white-space: nowrap; }
+        th { background-color: #f2f2f2; }
+        .actions a {
+            margin-right: 10px;
+            text-decoration: none;
+            color: #A40F0F;
+            font-weight: bold;
         }
-        form select.input-field {
-            height: 40px;
-        }
-        .form-button {
+        .actions a.edit { color: #fac031; }
+        .actions a.delete { color: #c01e1e; }
+        .add-button {
             display: inline-block;
             background-color: #A40F0F;
             color: white;
             padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-right: 10px;
-        }
-        .form-button:hover { background-color: #c01e1e; }
-        .back-button {
-            display: inline-block;
-            background-color: #555;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 5px;
             text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
         }
-        .back-button:hover { background-color: #333; }
-        .errorlist { color: red; font-size: 0.9em; margin-top: 5px; }
+        .add-button:hover { background-color: #c01e1e; }
         .rodape { margin-top: 50px; }
     </style>
 </head>
@@ -80,28 +67,42 @@
     </section>
 
     <div class="container">
-        <h1>{{ form_title }} Categoria</h1>
-        <form method="post">
-            {% csrf_token %}
-            {% for field in form %}
-                <div>
-                    {{ field.label_tag }}
-                    {% if field.field.widget.input_type == 'select' %}
-                        {{ field|add_class:"input-field" }}
-                    {% else %}
-                        {{ field|add_class:"input-field" }}
-                    {% endif %}
-                    {% if field.help_text %}
-                        <small style="color: #666;">{{ field.help_text }}</small>
-                    {% endif %}
-                    {% for error in field.errors %}
-                        <p class="errorlist">{{ error }}</p>
-                    {% endfor %}
-                </div>
-            {% endfor %}
-            <button type="submit" class="form-button">Salvar</button>
-            <a href="{% url 'core:categoria_produto_list' %}" class="back-button">Cancelar</a>
-        </form>
+        <h1>Lista de Pagamentos</h1>
+        <a href="{% url 'core:pagamento_create' %}" class="add-button">Adicionar Novo Pagamento</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Pedido</th>
+                    <th>Valor Pago</th>
+                    <th>Data Pagamento</th>
+                    <th>Método</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pagamento in pagamentos %}
+                <tr>
+                    <td>{{ pagamento.id_pagamento }}</td>
+                    <td>{{ pagamento.id_pedido.id_pedido }}</td>
+                    <td>R$ {{ pagamento.valor_pago|floatformat:2 }}</td>
+                    <td>{{ pagamento.data_pagamento|date:"d/m/Y H:i:s" }}</td>
+                    <td>{{ pagamento.metodo_pagamento }}</td>
+                    <td>{{ pagamento.status_pagamento }}</td>
+                    <td class="actions">
+                        <a href="{% url 'core:pagamento_detail' pk=pagamento.pk %}">Ver</a>
+                        <a href="{% url 'core:pagamento_update' pk=pagamento.pk %}" class="edit">Editar</a>
+                        <a href="{% url 'core:pagamento_delete' pk=pagamento.pk %}" class="delete">Deletar</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7">Nenhum pagamento encontrado.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 
     <div class="rodape">

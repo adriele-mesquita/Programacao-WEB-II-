@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Pedidos - Food Travel</title>
+    <title>Lista de Endereços de Clientes - Food Travel</title>
     <link rel="stylesheet" href="{% static 'estilo.css' %}">
     <link rel="stylesheet" href="{% static 'catalogo.css' %}">
     <style>
@@ -16,7 +16,7 @@
             padding: 30px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
             border-radius: 8px;
-            overflow-x: auto; /* Para tabelas grandes em telas pequenas */
+            overflow-x: auto;
         }
         h1 { color: #A40F0F; text-align: center; margin-bottom: 30px; }
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
@@ -55,7 +55,7 @@
                 <li><a href="{% url 'core:index' %}#Cardápio">Cardápio</a></li>
                 <li><a href="{% url 'core:index' %}#Horário">Horário</a></li>
                 <li><a href="{% url 'core:index' %}#Avaliações">Avaliações</a></li>
-                <li><a href="#">Pedidos</a></li> 
+                <li><a href="{% url 'core:pedido_list' %}">Pedidos</a></li>
             </ul>
             <div class="icones">
                 <i class="fa-solid fa-magnifying-glass"></i>
@@ -67,42 +67,42 @@
     </section>
 
     <div class="container">
-        <h1>Lista de Pedidos</h1>
-        <a href="{% url 'core:pedido_create' %}" class="add-button">Adicionar Novo Pedido</a>
+        <h1>Lista de Endereços de Clientes</h1>
+        <a href="{% url 'core:endereco_cliente_create' %}" class="add-button">Adicionar Novo Endereço</a>
         <table>
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Cliente</th>
-                    <th>Restaurante</th>
-                    <th>Data/Hora</th>
-                    <th>Status</th>
-                    <th>Total</th>
-                    <th>Pagamento</th>
-                    <th>Entrega</th>
+                    <th>Pedido</th>
+                    <th>Rua</th>
+                    <th>Número</th>
+                    <th>Bairro</th>
+                    <th>Cidade</th>
+                    <th>Estado</th>
                     <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
-                {% for pedido in pedidos %}
+                {% for endereco in enderecos %}
                 <tr>
-                    <td>{{ pedido.id_pedido }}</td>
-                    <td>{{ pedido.id_cliente.nome }}</td>
-                    <td>{{ pedido.id_restaurante.nome_do_restaurante }}</td>
-                    <td>{{ pedido.data_hora_pedido|date:"d/m/Y H:i:s" }}</td>
-                    <td>{{ pedido.status_pedido }}</td>
-                    <td>R$ {{ pedido.total_pedido|floatformat:2 }}</td>
-                    <td>{{ pedido.forma_pagamento }} (Troco: {{ pedido.troco|default:"N/A" }})</td>
-                    <td>{{ pedido.delivery }}</td>
+                    <td>{{ endereco.id_endereco }}</td>
+                    <td>{{ endereco.id_cliente.nome }}</td>
+                    <td>{{ endereco.id_pedido|default:"N/A" }}</td>
+                    <td>{{ endereco.rua }}</td>
+                    <td>{{ endereco.numero|default:"S/N" }}</td>
+                    <td>{{ endereco.bairro|default:"N/A" }}</td>
+                    <td>{{ endereco.cidade }}</td>
+                    <td>{{ endereco.estado }}</td>
                     <td class="actions">
-                        <a href="{% url 'core:pedido_detail' pk=pedido.pk %}">Ver</a>
-                        <a href="{% url 'core:pedido_update' pk=pedido.pk %}" class="edit">Editar</a>
-                        <a href="{% url 'core:pedido_delete' pk=pedido.pk %}" class="delete">Deletar</a>
+                        <a href="{% url 'core:endereco_cliente_detail' pk=endereco.pk %}">Ver</a>
+                        <a href="{% url 'core:endereco_cliente_update' pk=endereco.pk %}" class="edit">Editar</a>
+                        <a href="{% url 'core:endereco_cliente_delete' pk=endereco.pk %}" class="delete">Deletar</a>
                     </td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="9">Nenhum pedido encontrado.</td>
+                    <td colspan="9">Nenhum endereço encontrado.</td>
                 </tr>
                 {% endfor %}
             </tbody>
