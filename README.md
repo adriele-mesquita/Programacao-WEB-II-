@@ -83,12 +83,12 @@ O objetivo deste projeto é desenvolver uma aplicação de delivery de comida, "
         print(f"Usuário funcionário '{user_funcionario.username}' já existe.")
 
     exit()
-    ```
+
     
 6. Inicie o servidor de desenvolvimento:
     python manage.py runserver
 
-7.  Abra seu navegador e acesse `http://127.0.0.1:8000/`.
+7.  Abra seu navegador e acesse `http://127.0.0.1:8000/
 
-Painel de Administração:`http://127.0.0.1:8000/admin/`
-Lista de Produtos (CRUD):`http://127.0.0.1:8000/produtos/`
+Lista de Produtos (CRUD):http://127.0.0.1:8000/produtos/
+ LINKS:GITHUB = https://github.com/adriele-mesquita/jenkis-katalon-sonar-web2.git
