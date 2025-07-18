@@ -42,9 +42,48 @@ O objetivo deste projeto é desenvolver uma aplicação de delivery de comida, "
     python manage.py makemigrations core
     python manage.py migrate
 
-5.  Crie um superusuário:
-    python manage.py createsuperuser
-    Siga as instruções para criar o nome de usuário e senha.
+5.  Crie usuários iniciais:
+    Para testar o login e o CRUD, você pode criar um cliente e um python manage.py shell
+    No shell Python, execute:
+    from django.contrib.auth.models import User
+    from core.models import Cliente, Funcionario, Restaurante
+
+    Criar um Restaurante (necessário para criar Funcionario e alguns Produtos/Pedidos)
+    restaurante, created = Restaurante.objects.get_or_create(
+        nome_do_restaurante='Restaurante Central',
+        defaults={
+            'cnpj': '00000000000000',
+            'endereco_restaurante': 'Av. Principal, 100',
+            'horario_funcionamento': '09:00:00'
+        }
+    )
+    if created:
+        print(f"Restaurante '{restaurante.nome_do_restaurante}' criado.")
+    else:
+        print(f"Restaurante '{restaurante.nome_do_restaurante}' já existe.")
+
+    user_cliente, created = User.objects.get_or_create(username='cliente_teste', defaults={'email': 'cliente@exemplo.com'})
+    if created:
+        user_cliente.set_password('senhadocliente')
+        user_cliente.save()
+        Cliente.objects.create(user=user_cliente, nome='Cliente Teste', cpf='11111111111', telefone='11999998888', email='cliente@exemplo.com')
+        print(f"Cliente '{user_cliente.username}' criado.")
+    else:
+        print(f"Usuário cliente '{user_cliente.username}' já existe.")
+
+    user_funcionario, created = User.objects.get_or_create(username='funcionario_master', defaults={'email': 'funcionario@exemplo.com'})
+    if created:
+        user_funcionario.set_password('senhadofuncionario')
+        user_funcionario.is_staff = True
+        user_funcionario.is_superuser = True
+        user_funcionario.save()
+        Funcionario.objects.create(user=user_funcionario, nome_funcionario='Funcionario Master', cargo='Gerente', data_contratacao='2023-01-01', salario=5000.00, id_restaurante=restaurante)
+        print(f"Funcionário Master '{user_funcionario.username}' criado.")
+    else:
+        print(f"Usuário funcionário '{user_funcionario.username}' já existe.")
+
+    exit()
+    ```
     
 6. Inicie o servidor de desenvolvimento:
     python manage.py runserver
