@@ -79,12 +79,16 @@
                 <img src="{% static 'assets/logo1.png' %}">
             </div>
             <ul>
-                <li><a href="#inicio">Início</a></li>
-                <li><a href="#Informações">Informações</a></li>
-                <li><a href="#Cardápio">Cardápio</a></li>
-                <li><a href="#Horário">Horário</a></li>
-                <li><a href="#Avaliações">Avaliações</a></li>
-                <li><a href="{% url 'core:pedido_list' %}">Pedidos</a></li> 
+                <li><a href="{% url 'core:produto_list' %}">Produtos</a></li>
+                <li><a href="{% url 'core:cliente_list' %}">Clientes</a></li>
+                <li><a href="{% url 'core:restaurante_list' %}">Restaurantes</a></li>
+                <li><a href="{% url 'core:categoria_produto_list' %}">Categorias</a></li>
+                <li><a href="{% url 'core:pedido_list' %}">Pedidos</a></li>
+                <li><a href="{% url 'core:endereco_cliente_list' %}">Endereços</a></li>
+                <li><a href="{% url 'core:item_pedido_list' %}">Itens Pedido</a></li>
+                <li><a href="{% url 'core:avaliacao_list' %}">Avaliações</a></li>
+                <li><a href="{% url 'core:funcionario_list' %}">Funcionários</a></li>
+                <li><a href="{% url 'core:pagamento_list' %}">Pagamentos</a></li>
             </ul>
             <div class="icones">
                 <i class="fa-solid fa-magnifying-glass"></i>
