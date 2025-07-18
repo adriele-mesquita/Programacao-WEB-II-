@@ -354,12 +354,14 @@ def funcionario_create(request):
     if request.method == 'POST':
         form = FuncionarioForm(request.POST)
         if form.is_valid():
-            funcionario_service.create_funcionario(form)
-            return redirect('core:funcionario_list')
-    else: 
+            form.save()
+            messages.success(request, 'Funcionário cadastrado como usuário master! Agora você pode fazer login.')
+            return redirect('core:login_view') 
+        else:
+            messages.error(request, 'Erro ao cadastrar funcionário. Verifique os dados informados e se as senhas coincidem.')
+    else:
         form = FuncionarioForm()
-    return render(request, 'funcionario_form.html', {'form': form, 'form_title': 'Criar '}) 
-
+    return render(request, 'funcionario_form.html', {'form': form, 'form_title': 'Criar '})
 def funcionario_update(request, pk):
     funcionario = get_object_or_404(Funcionario, pk=pk)
     if request.method == 'POST':

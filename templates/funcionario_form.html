@@ -1,5 +1,5 @@
 {% load static %}
-{% load custom_filters %} 
+{% load custom_filters %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -86,7 +86,7 @@
             {% for field in form %}
                 <div>
                     {{ field.label_tag }}
-                    {% if field.field.widget.input_type == 'select' %}
+                    {% if field.field.widget.input_type == 'select' or field.name == 'username' or field.name == 'password' or field.name == 'password_confirm' %}
                         {{ field|add_class:"input-field" }}
                     {% else %}
                         {{ field|add_class:"input-field" }}

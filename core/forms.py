@@ -233,28 +233,51 @@ class AvaliacaoForm(forms.ModelForm):
             'estrelas': 'Estrelas',
         }
 class FuncionarioForm(forms.ModelForm): 
-    id_restaurante = forms.ModelChoiceField(
-        queryset=Restaurante.objects.all(),
-        empty_label="Selecione o Restaurante",
-        label="Restaurante"
-    )
+    username = forms.CharField(max_length=150, required=True, widget=forms.TextInput(attrs={'class': 'input-field', 'placeholder': 'Nome de Usuário'}))
+    password = forms.CharField(label='Senha', widget=forms.PasswordInput(attrs={'class': 'input-field', 'placeholder': 'Senha'}))
+    password_confirm = forms.CharField(label='Confirme a Senha', widget=forms.PasswordInput(attrs={'class': 'input-field', 'placeholder': 'Confirme a Senha'}))
 
     class Meta:
         model = Funcionario
-        fields = ['nome_funcionario', 'cargo', 'data_contratacao', 'salario', 'id_restaurante']
+        # Remova 'senha' se ainda estiver aqui
+        fields = ['username', 'password', 'password_confirm', 'nome_funcionario', 'cargo', 'data_contratacao', 'salario', 'id_restaurante']
         widgets = {
             'nome_funcionario': forms.TextInput(attrs={'class': 'input-field', 'placeholder': 'Nome Completo'}),
             'cargo': forms.TextInput(attrs={'class': 'input-field', 'placeholder': 'Cargo'}),
-            'data_contratacao': forms.DateInput(attrs={'class': 'input-field', 'type': 'date'}), 
+            'data_contratacao': forms.DateInput(attrs={'class': 'input-field', 'type': 'date'}),
             'salario': forms.NumberInput(attrs={'class': 'input-field', 'placeholder': 'Salário'}),
         }
         labels = {
+            'username': 'Nome de Usuário',
+            'password': 'Senha',
+            'password_confirm': 'Confirme a Senha',
             'nome_funcionario': 'Nome do Funcionário',
             'cargo': 'Cargo',
             'data_contratacao': 'Data de Contratação',
             'salario': 'Salário',
             'id_restaurante': 'Restaurante',
         }
+
+    def clean(self): 
+        cleaned_data = super().clean()
+        password = cleaned_data.get("password")
+        password_confirm = cleaned_data.get("password_confirm")
+
+        if password and password_confirm and password != password_confirm:
+            self.add_error('password_confirm', "As senhas não coincidem.")
+        return cleaned_data
+
+    def save(self, commit=True):
+        user = User.objects.create_superuser( 
+            username=self.cleaned_data["username"],
+            email=self.cleaned_data.get("email", ""), 
+            password=self.cleaned_data["password"]
+        )
+        funcionario = super().save(commit=False)
+        funcionario.user = user 
+        if commit:
+            funcionario.save()
+        return funcionario
 
 class PagamentoForm(forms.ModelForm):
     id_pedido = forms.ModelChoiceField(
