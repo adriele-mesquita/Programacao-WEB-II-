@@ -54,13 +54,13 @@
                 <li><a href="{% url 'core:index' %}#Cardápio">Cardápio</a></li>
                 <li><a href="{% url 'core:index' %}#Horário">Horário</a></li>
                 <li><a href="{% url 'core:index' %}#Avaliações">Avaliações</a></li>
-                <li><a href="{% url 'core:pedido_list' %}">Pedidos</a></li> {# Exemplo de link para outra lista #}
+                <li><a href="{% url 'core:pedido_list' %}">Pedidos</a></li> 
             </ul>
             <div class="icones">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <i class="fa-solid fa-heart"></i>
                 <i class="fa-solid fa-cart-shopping"></i>
-                <a href="{% url 'core:login' %}"><i class="fa-solid fa-user"></i></a>
+                <a href="{% url 'core:login_view' %}"><i class="fa-solid fa-user"></i></a>
             </div>
         </nav>
     </section>

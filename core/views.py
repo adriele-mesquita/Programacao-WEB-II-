@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout # <-- NOVOS IMPORTS: authenticate, login, logout
 from .models import (
-    Produto, CategoriaProduto, Restaurante, Cliente, Pedido, EnderecoCliente, ItemPedido, Avaliacao, Funcionario, Pagamento 
+    Produto, CategoriaProduto, Restaurante, Cliente, Pedido, EnderecoCliente, ItemPedido, Avaliacao, Funcionario, Pagamento
 )
 from .forms import (
-    ProdutoForm, ClienteForm, RestauranteForm, CategoriaProdutoForm, PedidoForm, EnderecoClienteForm, ItemPedidoForm, AvaliacaoForm, FuncionarioForm, PagamentoForm 
+    ProdutoForm, ClienteForm, RestauranteForm, CategoriaProdutoForm, PedidoForm, EnderecoClienteForm, ItemPedidoForm, AvaliacaoForm, FuncionarioForm, PagamentoForm
 )
 from .services import (
     ProdutoService, ClienteService, RestauranteService, CategoriaProdutoService, PedidoService, EnderecoClienteService, ItemPedidoService, AvaliacaoService, FuncionarioService, PagamentoService
@@ -24,7 +26,25 @@ def index(request):
     return render(request, 'index.html')
 
 def login_view(request):
-    return render(request, 'login.html')
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+            login(request, user)
+            messages.success(request, f"Bem-vindo(a), {username}!")
+            return redirect('core:index') 
+        else:
+            messages.error(request, "Nome de usuário ou senha inválidos.")
+    
+    return render(request, 'login.html') 
+
+def logout_view(request): 
+    logout(request)
+    messages.info(request, "Você saiu da sua conta.")
+    return redirect('core:login_view') 
 
 def catalogo_view(request, categoria):
     return render(request, f'catalogo{categoria}.html')
@@ -43,9 +63,9 @@ def produto_create(request):
         if form.is_valid():
             produto_service.create_produto(form)
             return redirect('core:produto_list')
-    else:
+    else: 
         form = ProdutoForm()
-    return render(request, 'produto_form.html', {'form': form, 'form_title': 'Criar Produto'})
+    return render(request, 'produto_form.html', {'form': form, 'form_title': 'Criar'}) 
 
 def produto_update(request, pk):
     produto = get_object_or_404(Produto, pk=pk)
@@ -56,7 +76,7 @@ def produto_update(request, pk):
             return redirect('core:produto_list')
     else:
         form = ProdutoForm(instance=produto)
-    return render(request, 'produto_form.html', {'form': form, 'form_title': 'Editar Produto'})
+    return render(request, 'produto_form.html', {'form': form, 'form_title': 'Editar '})
 
 def produto_delete(request, pk):
     produto = get_object_or_404(Produto, pk=pk)
@@ -78,10 +98,14 @@ def cliente_create(request):
         form = ClienteForm(request.POST)
         if form.is_valid():
             cliente_service.create_cliente(form)
-            return redirect('core:cliente_list')
-    else:
+            messages.success(request, 'Cliente cadastrado com sucesso! Agora você pode fazer login.') 
+            return redirect('core:login') 
+        else:
+            messages.error(request, 'Erro ao cadastrar cliente. Verifique os dados informados.') 
+            
+    else: 
         form = ClienteForm()
-    return render(request, 'cliente_form.html', {'form': form, 'form_title': 'Cadastrar Cliente'})
+    return render(request, 'cliente_form.html', {'form': form, 'form_title': 'Cadastrar '})
 
 def cliente_update(request, pk):
     cliente = get_object_or_404(Cliente, pk=pk)
@@ -92,7 +116,7 @@ def cliente_update(request, pk):
             return redirect('core:cliente_list')
     else:
         form = ClienteForm(instance=cliente)
-    return render(request, 'cliente_form.html', {'form': form, 'form_title': 'Editar Cliente'})
+    return render(request, 'cliente_form.html', {'form': form, 'form_title': 'Editar '})
 
 def cliente_delete(request, pk):
     cliente = get_object_or_404(Cliente, pk=pk)
@@ -116,9 +140,9 @@ def restaurante_create(request):
         if form.is_valid():
             restaurante_service.create_restaurante(form)
             return redirect('core:restaurante_list')
-    else:
+    else: 
         form = RestauranteForm()
-    return render(request, 'restaurante_form.html', {'form': form, 'form_title': 'Cadastrar Restaurante'})
+    return render(request, 'restaurante_form.html', {'form': form, 'form_title': 'Cadastrar '}) 
 
 def restaurante_update(request, pk):
     restaurante = get_object_or_404(Restaurante, pk=pk)
@@ -129,7 +153,7 @@ def restaurante_update(request, pk):
             return redirect('core:restaurante_list')
     else:
         form = RestauranteForm(instance=restaurante)
-    return render(request, 'restaurante_form.html', {'form': form, 'form_title': 'Editar Restaurante'})
+    return render(request, 'restaurante_form.html', {'form': form, 'form_title': 'Editar '})
 
 def restaurante_delete(request, pk):
     restaurante = get_object_or_404(Restaurante, pk=pk)
@@ -152,9 +176,9 @@ def categoria_produto_create(request):
         if form.is_valid():
             categoria_produto_service.create_categoria(form)
             return redirect('core:categoria_produto_list')
-    else:
+    else: 
         form = CategoriaProdutoForm()
-    return render(request, 'categoria_produto_form.html', {'form': form, 'form_title': 'Criar Categoria'})
+    return render(request, 'categoria_produto_form.html', {'form': form, 'form_title': 'Criar '})
 
 def categoria_produto_update(request, pk):
     categoria = get_object_or_404(CategoriaProduto, pk=pk)
@@ -165,7 +189,7 @@ def categoria_produto_update(request, pk):
             return redirect('core:categoria_produto_list')
     else:
         form = CategoriaProdutoForm(instance=categoria)
-    return render(request, 'categoria_produto_form.html', {'form': form, 'form_title': 'Editar Categoria'})
+    return render(request, 'categoria_produto_form.html', {'form': form, 'form_title': 'Editar '})
 
 def categoria_produto_delete(request, pk):
     categoria = get_object_or_404(CategoriaProduto, pk=pk)
@@ -173,6 +197,7 @@ def categoria_produto_delete(request, pk):
         categoria_produto_service.delete_categoria(pk)
         return redirect('core:categoria_produto_list')
     return render(request, 'categoria_produto_confirm_delete.html', {'categoria': categoria})
+
 def pedido_list(request):
     pedidos = pedido_service.get_all_pedidos()
     return render(request, 'pedido_list.html', {'pedidos': pedidos})
@@ -187,9 +212,9 @@ def pedido_create(request):
         if form.is_valid():
             pedido_service.create_pedido(form)
             return redirect('core:pedido_list')
-    else:
+    else: 
         form = PedidoForm()
-    return render(request, 'pedido_form.html', {'form': form, 'form_title': 'Criar Pedido'})
+    return render(request, 'pedido_form.html', {'form': form, 'form_title': 'Criar '})
 
 def pedido_update(request, pk):
     pedido = get_object_or_404(Pedido, pk=pk)
@@ -200,7 +225,7 @@ def pedido_update(request, pk):
             return redirect('core:pedido_list')
     else:
         form = PedidoForm(instance=pedido)
-    return render(request, 'pedido_form.html', {'form': form, 'form_title': 'Editar Pedido'})
+    return render(request, 'pedido_form.html', {'form': form, 'form_title': 'Editar '})
 
 def pedido_delete(request, pk):
     pedido = get_object_or_404(Pedido, pk=pk)
@@ -225,7 +250,7 @@ def endereco_cliente_create(request):
             return redirect('core:endereco_cliente_list')
     else:
         form = EnderecoClienteForm()
-    return render(request, 'endereco_cliente_form.html', {'form': form, 'form_title': 'Criar Endereço de Cliente'})
+    return render(request, 'endereco_cliente_form.html', {'form': form, 'form_title': 'Criar '})
 
 def endereco_cliente_update(request, pk):
     endereco = get_object_or_404(EnderecoCliente, pk=pk)
@@ -236,7 +261,7 @@ def endereco_cliente_update(request, pk):
             return redirect('core:endereco_cliente_list')
     else:
         form = EnderecoClienteForm(instance=endereco)
-    return render(request, 'endereco_cliente_form.html', {'form': form, 'form_title': 'Editar Endereço de Cliente'})
+    return render(request, 'endereco_cliente_form.html', {'form': form, 'form_title': 'Editar '})
 
 def endereco_cliente_delete(request, pk):
     endereco = get_object_or_404(EnderecoCliente, pk=pk)
@@ -259,9 +284,9 @@ def item_pedido_create(request):
         if form.is_valid():
             item_pedido_service.create_item_pedido(form)
             return redirect('core:item_pedido_list')
-    else:
+    else: 
         form = ItemPedidoForm()
-    return render(request, 'item_pedido_form.html', {'form': form, 'form_title': 'Criar Item de Pedido'})
+    return render(request, 'item_pedido_form.html', {'form': form, 'form_title': 'Criar '}) 
 
 def item_pedido_update(request, pk):
     item_pedido = get_object_or_404(ItemPedido, pk=pk)
@@ -272,7 +297,7 @@ def item_pedido_update(request, pk):
             return redirect('core:item_pedido_list')
     else:
         form = ItemPedidoForm(instance=item_pedido)
-    return render(request, 'item_pedido_form.html', {'form': form, 'form_title': 'Editar Item de Pedido'})
+    return render(request, 'item_pedido_form.html', {'form': form, 'form_title': 'Editar'})
 
 def item_pedido_delete(request, pk):
     item_pedido = get_object_or_404(ItemPedido, pk=pk)
@@ -295,9 +320,9 @@ def avaliacao_create(request):
         if form.is_valid():
             avaliacao_service.create_avaliacao(form)
             return redirect('core:avaliacao_list')
-    else:
+    else: 
         form = AvaliacaoForm()
-    return render(request, 'avaliacao_form.html', {'form': form, 'form_title': 'Criar Avaliação'})
+    return render(request, 'avaliacao_form.html', {'form': form, 'form_title': 'Criar '}) 
 
 def avaliacao_update(request, pk):
     avaliacao = get_object_or_404(Avaliacao, pk=pk)
@@ -308,7 +333,7 @@ def avaliacao_update(request, pk):
             return redirect('core:avaliacao_list')
     else:
         form = AvaliacaoForm(instance=avaliacao)
-    return render(request, 'avaliacao_form.html', {'form': form, 'form_title': 'Editar Avaliação'})
+    return render(request, 'avaliacao_form.html', {'form': form, 'form_title': 'Editar '})
 
 def avaliacao_delete(request, pk):
     avaliacao = get_object_or_404(Avaliacao, pk=pk)
@@ -331,9 +356,9 @@ def funcionario_create(request):
         if form.is_valid():
             funcionario_service.create_funcionario(form)
             return redirect('core:funcionario_list')
-    else:
+    else: 
         form = FuncionarioForm()
-    return render(request, 'funcionario_form.html', {'form': form, 'form_title': 'Criar Funcionário'})
+    return render(request, 'funcionario_form.html', {'form': form, 'form_title': 'Criar '}) 
 
 def funcionario_update(request, pk):
     funcionario = get_object_or_404(Funcionario, pk=pk)
@@ -344,7 +369,7 @@ def funcionario_update(request, pk):
             return redirect('core:funcionario_list')
     else:
         form = FuncionarioForm(instance=funcionario)
-    return render(request, 'funcionario_form.html', {'form': form, 'form_title': 'Editar Funcionário'})
+    return render(request, 'funcionario_form.html', {'form': form, 'form_title': 'Editar'})
 
 def funcionario_delete(request, pk):
     funcionario = get_object_or_404(Funcionario, pk=pk)
@@ -367,9 +392,9 @@ def pagamento_create(request):
         if form.is_valid():
             pagamento_service.create_pagamento(form)
             return redirect('core:pagamento_list')
-    else:
+    else: 
         form = PagamentoForm()
-    return render(request, 'pagamento_form.html', {'form': form, 'form_title': 'Criar Pagamento'})
+    return render(request, 'pagamento_form.html', {'form': form, 'form_title': 'Criar '}) 
 
 def pagamento_update(request, pk):
     pagamento = get_object_or_404(Pagamento, pk=pk)
@@ -380,7 +405,7 @@ def pagamento_update(request, pk):
             return redirect('core:pagamento_list')
     else:
         form = PagamentoForm(instance=pagamento)
-    return render(request, 'pagamento_form.html', {'form': form, 'form_title': 'Editar Pagamento'})
+    return render(request, 'pagamento_form.html', {'form': form, 'form_title': 'Editar '})
 
 def pagamento_delete(request, pk):
     pagamento = get_object_or_404(Pagamento, pk=pk)

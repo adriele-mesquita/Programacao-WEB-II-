@@ -8,7 +8,49 @@
     <link rel="stylesheet" href="{% static 'estilocadastro.css' %}">
     <meta charset="UTF-8">
     <title>Food TRAVEL</title>
-    
+    <style>
+        .select-role-group {
+            margin-bottom: 15px;
+            text-align: left;
+            width: 100%;
+        }
+        .select-role-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        .select-role-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: white;
+            font-size: 16px;
+        }
+        .input-group.hidden {
+            display: none;
+        }
+        .input-group {
+            top: 180px; 
+            position: absolute;
+            width: 280px;
+            transition: .5s;
+            display: flex; 
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        #login, #register-selection, #register-funcionario {
+            position: absolute;
+            top: 180px; 
+            width: 280px;
+            transition: .5s;
+            padding-bottom: 20px; 
+        }
+        #login { left: 50px; }
+        #register-selection { left: 450px; } 
+    </style>
 </head>
 
 <body>
@@ -23,13 +65,13 @@
                 <li><a href="{% url 'core:index' %}#Cardápio">Cardápio</a></li>
                 <li><a href="{% url 'core:index' %}#Horário">Horário</a></li>
                 <li><a href="{% url 'core:index' %}#Avaliações">Avaliações</a></li>
-                <li><a href="{% url 'core:index' %}#pedido">Pedido</a></li>
+                <li><a href="{% url 'core:pedido_list' %}">Pedidos</a></li> 
             </ul>
             <div class="icones">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <i class="fa-solid fa-heart"></i>
                 <i class="fa-solid fa-cart-shopping"></i>
-                <a href="{% url 'core:login' %}"><i class="fa-solid fa-user"></i></a>
+                <a href="{% url 'core:login_view' %}"><i class="fa-solid fa-user"></i></a>
             </div>
         </nav>
     </section>
@@ -38,33 +80,49 @@
         <div class="form-box">
             <div class="button-box">
                 <div id="btn"></div>
-                <button type="button" class="toggle-btn" onclick="login()">Login</button>
-                <button type="button" class="toggle-btn" onclick="register()">Registre</button>
+                <button type="button" class="toggle-btn" onclick="showLogin()">Login</button>
+                <button type="button" class="toggle-btn" onclick="showRegisterSelection()">Registre</button>
             </div>
             <div class="social-icons">
                 <img src="{% static 'assets/fb.png' %}">
                 <img src="{% static 'assets/tw.png' %}">
                 <img src="{% static 'assets/gp.png' %}">
             </div>
-            <form id="login" class="input-group">
-                <input type="text" class="input-field" placeholder="User" required>
-                <input type="text" class="input-field" placeholder="Senha" required>
+
+            <form id="login" class="input-group" method="post" action="{% url 'core:login_view' %}">
+                {% csrf_token %} 
+                <input type="text" class="input-field" name="username" placeholder="User" required> {# Adicione name="username" #}
+                <input type="password" class="input-field" name="password" placeholder="Senha" required> {# Adicione name="password" #}
                 <div class="check-box"><input type="checkbox" class="check-box"><span>Lembre minha senha</span></div>
                <button type="submit" class="submit-btn">Entrar</button>
             </form>
-            <form id="register" class="input-group">
-                <input type="text" class="input-field" placeholder="User"
-                required>
-                <input type="email" class="input-field" placeholder="E-mail"
-                required>
-                <input type="text" class="input-field" placeholder="Senha"
-                required>
-                <div class="check-box"><input type="checkbox" class="check-box"><span> Concordo com os termos & condições</span></div>
-               <button type="submit" class="submit-btn">Registre</button>
+
+            <form id="register-selection" class="input-group hidden">
+                <div class="select-role-group">
+                    <label for="registerType">Registrar como:</label>
+                    <select id="registerType" class="input-field">
+                        <option value="cliente">Cliente</option>
+                        <option value="funcionario">Funcionário</option>
+                    </select>
+                </div>
+                <button type="button" class="submit-btn" onclick="redirectToRegisterPage()">Continuar</button>
             </form>
         </div>
-               
     </div>
+
+    {% if messages %}
+        <ul class="messages" style="list-style: none; padding: 10px; margin: 20px auto; max-width: 400px; text-align: center;">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %} style="padding: 10px; border-radius: 5px; margin-bottom: 10px;
+                    {% if 'success' in message.tags %} background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb;
+                    {% elif 'error' in message.tags %} background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb;
+                    {% else %} background-color: #e2e3e5; color: #383d41; border: 1px solid #d6d8db;
+                    {% endif %}">
+                    {{ message }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 
     <div class="rodape">
         <p>© Food Travel - Todos os direitos reservados</p>
@@ -75,21 +133,39 @@
     </div>
 
     <script>
-        var x = document.getElementById("login");
-        var y = document.getElementById("register");
-        var z = document.getElementById("btn");
+        var loginForm = document.getElementById("login");
+        var registerSelectionForm = document.getElementById("register-selection");
+        var registerTypeSelect = document.getElementById("registerType");
+        var btn = document.getElementById("btn");
 
-        function register(){
-            x.style.left = "-400px";
-            y.style.left = "50px";
-            z.style.left = "110px";
+        function hideAllRegisterForms() {
+            registerSelectionForm.classList.add("hidden");
         }
-        function login(){
-            x.style.left = "50px";
-            y.style.left = "450px";
-            z.style.left = "0px";
+
+        function showLogin() {
+            hideAllRegisterForms();
+            loginForm.style.left = "50px";
+            btn.style.left = "0px";
         }
+
+        function showRegisterSelection() {
+            loginForm.style.left = "-400px";
+            hideAllRegisterForms();
+            registerSelectionForm.classList.remove("hidden");
+            registerSelectionForm.style.left = "50px";
+            btn.style.left = "110px";
+        }
+
+        function redirectToRegisterPage() {
+            var selectedType = registerTypeSelect.value;
+            if (selectedType === "cliente") {
+                window.location.href = "{% url 'core:cliente_create' %}";
+            } else if (selectedType === "funcionario") {
+                window.location.href = "{% url 'core:funcionario_create' %}";
+            }
+        }
+        
+        showLogin();
     </script>
-    
 </body>
 </html>

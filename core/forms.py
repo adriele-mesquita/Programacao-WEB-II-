@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.hashers import make_password
 from .models import (
     Produto, CategoriaProduto, Restaurante, Cliente, Pedido, EnderecoCliente, ItemPedido, Avaliacao, Funcionario, Pagamento 
 )
@@ -30,6 +31,9 @@ class ProdutoForm(forms.ModelForm):
         }
 
 class ClienteForm(forms.ModelForm):
+    
+    senha = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'input-field', 'placeholder': 'Senha'}), label="Senha")
+
     class Meta:
         model = Cliente
         fields = ['nome', 'cpf', 'telefone', 'email', 'senha']
@@ -38,7 +42,7 @@ class ClienteForm(forms.ModelForm):
             'cpf': forms.TextInput(attrs={'class': 'input-field', 'placeholder': 'CPF (apenas números)'}),
             'telefone': forms.TextInput(attrs={'class': 'input-field', 'placeholder': 'Telefone'}),
             'email': forms.EmailInput(attrs={'class': 'input-field', 'placeholder': 'E-mail'}),
-            'senha': forms.PasswordInput(attrs={'class': 'input-field', 'placeholder': 'Senha'}),
+            
         }
         labels = {
             'nome': 'Nome',
@@ -48,6 +52,13 @@ class ClienteForm(forms.ModelForm):
             'senha': 'Senha',
         }
 
+    def save(self, commit=True): 
+        cliente = super().save(commit=False) 
+        cliente.senha = make_password(self.cleaned_data["senha"]) 
+        if commit:
+            cliente.save() 
+        return cliente
+    
 class RestauranteForm(forms.ModelForm):
     class Meta:
         model = Restaurante

@@ -14,7 +14,6 @@ body {
     flex-direction: column;
 }
 
-/*Topo*/
 section {
     width: 100%;
     height: 115px;
@@ -85,8 +84,6 @@ section nav ul li a:hover {
     color: #fac031;
 }
 
-/*ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo*/
-/*Inicio*/
 .começa {
     width: 100%;
     height: 500px;
@@ -158,8 +155,6 @@ section nav ul li a:hover {
     gap: 20px;
 }
 
-/*aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa*/
-/*INFORMAÇÃO*/
 .INFORMAÇÃO {
     width: 100%;
     height: 500px;
@@ -243,7 +238,6 @@ section nav ul li a:hover {
 }
 
 
-/*Cardapio*/
 .Cardápio {
     width: 100%;
     height: 2600px;
@@ -390,7 +384,6 @@ section nav ul li a:hover {
     transition: 0.3s;
 }
 
-/*Horário*/
 .Horário {
     width: 100%;
     height: 450px;
@@ -465,7 +458,6 @@ section nav ul li a:hover {
     color: #ACACAC;
 }
 
-/*Avaliações*/
 .Avaliações {
     width: 100%;
     height: 800px;
@@ -586,88 +578,6 @@ section nav ul li a:hover {
     margin-top: 5px;
 }
 
-/*
-.pedido {
-    width: 100%;
-    height: 720px;
-    padding: 70px 0;
-    position: relative;
-    background-image: url(image/bg2.jpg);
-    background-size: cover;
-    background-position: center;
-}
-
-.pedido h1 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #000;
-    font-size: 55px;
-}
-
-.pedido h1 span {
-    color: #fac031;
-    margin-right: 15px;
-    font-family: mv boli;
-    padding-left: 17px;
-}
-
-.pedido h1 span::after {
-    content: '';
-    width: 100%;
-    height: 2px;
-    background: #fac031;
-    display: block;
-    position: relative;
-    bottom: 15px;
-}
-
-.pec {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-}
-
-.img8 img {
-    height: 500px;
-}
-
-.form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 0 10px;
-}
-
-.x p {
-    line-height: 25px;
-}
-
-.x {
-    margin: 5px;
-}
-
-.x input {
-    width: 300px;
-    height: 35px;
-    padding: 0 10px;
-    border: 2px solid #cccccc;
-    background: #eeeeee;
-    outline: none;
-    border-radius: 3px;
-}
-
-.peça {
-    padding: 10px 0;
-    background: #fac031;
-    color: #ffffff;
-    width: 40%;
-    text-align: center;
-    margin-top: 20px;
-    text-decoration: none;
-}
-*/
-
-/*Contatos*/
 .contatos {
     width: 100%;
     height: 500px;
@@ -704,7 +614,6 @@ iframe {
     margin: 50px;
 }
 
-/*Rodape*/
 .rodape {
     position: relative;
     width: 100%;
@@ -754,9 +663,7 @@ a {
     border-radius: 50px;
     border: 2px solid #ffffff;
 }
-/*aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa*/
 @media screen and (max-width: 1342px) {
-    /*Avaliações*/
     .Avaliações {
         width: 100%;
         height: 1300px;
@@ -769,34 +676,7 @@ a {
     }
 }
 
-@media screen and (max-width: 1254px) {
-    /*INFORMAÇÃO
-    .INFORMAÇÃO {
-        width: 100%;
-        height: 900px;
-    }
-
-    .seçao_informação {
-        width: 95%;
-        height: 800px;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-    }
-
-    .texto_informação {
-        width: 690px;
-        height: 300px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        align-items: center;
-    }
-}
-*/
-}
 @media screen and (max-width: 1105px) {
-    /*Cardapio*/
     .Cardápio {
         width: 100%;
         height: 3200px;
@@ -811,7 +691,6 @@ a {
         flex-wrap: wrap;
     }
     
-    /*Inicio*/
     .começa {
         display: flex;
         flex-direction: column;
@@ -825,47 +704,6 @@ a {
         flex-wrap: wrap;
         gap: 20px;
     }
-
-    /*informações
-    .INFORMAÇÃO {
-        width: 100%;
-        height: 835px;
-    }
-
-    .seçao_informação {
-        width: 95%;
-        height: 650px;
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-    }
-
-    .imagem_informação img {
-        height: 300px;
-    }
-
-    .texto_informação h1 {
-        font-size: 55px;
-        padding: 10px;
-
-    }
-
-    .texto_informação h3 {
-        width: 100%;
-        text-align: left;
-        font-size: 30px;
-        padding: 10px;
-
-    }
-    
-    .texto_informação p {
-        padding: 10px;
-        width: 650px;
-        font-size: 14px;
-        display: flex;
-        flex-wrap: wrap;
-    }*/
-
 
     
     .lista {
@@ -885,7 +723,6 @@ a {
 }
 
 @media screen and (max-width: 870px) {
-    /*Horário*/
     .Horário {
         width: 100%;
         height: 550px;
@@ -911,7 +748,6 @@ a {
 }
 
 @media screen and (max-width: 750px) {
-    /*Cardapio*/
     .Cardápio {
         width: 100%;
         height: 6200px;
@@ -934,7 +770,6 @@ a {
         bottom: 14px;
     }
 
-    /*Avaliações*/
     .Avaliações {
         width: 100%;
         height: 1400px;
@@ -942,36 +777,6 @@ a {
 }
 
 @media screen and (max-width: 700px) {
-    /*INFORMAÇÃO
-    .imagem_informação img {
-        height: 250px;
-    }
-
-    .texto_informação h1 {
-        font-size: 48px;
-    }
-
-    .texto_informação h3 {
-        width: 100%;
-        font-size: 25px;
-    }
-    
-    .texto_informação p {
-        font-size: 12px;
-        display: flex;
-        flex-wrap: wrap;
-    }
-
-    .texto_informação h1 span::after {
-        content: '';
-        position: relative;
-        bottom: 15px;
-        right: -165px;
-    }
-    */
-
-
-    /*Avaliações*/
     .Avaliações {
         width: 100%;
         height: 1350px;
@@ -980,7 +785,6 @@ a {
 }
 
 @media screen and (max-width: 676px) {
-    /*Inicio*/
     .texto {
         display: flex;
         align-items: center;
@@ -1015,7 +819,6 @@ a {
     }
     
 
-    /*Avaliações*/
     .Avaliações {
         width: 100%;
         height: 2450px;
@@ -1033,7 +836,6 @@ a {
 }
 
 @media screen and (max-width: 614px) {
-    /*Avaliações*/
     .Avaliações h1 {
         width: 300px;
         font-size: 50px;
@@ -1051,7 +853,6 @@ a {
 }
 
 @media screen and (max-width: 574px) {
-    /*Horário*/
     .Horário {
         width: 100%;
         height: 550px;
@@ -1078,7 +879,6 @@ a {
         flex-wrap: wrap;
     }
 
-    /*Rodape*/
     .a {
         width: 60px;
         height: 60px;
@@ -1093,15 +893,13 @@ a {
 }
 
 @media screen and (max-width: 512px) {
-    /*Contato*/
-    iframe {
+    .contatos iframe {
         width: 470px; 
         height: 420px;
     }
 }
 
 @media screen and (max-width: 420px) {
-    /*Topo*/
     section nav .logo img {
         width: 80px;
     }
@@ -1114,8 +912,7 @@ a {
         font-size: 15px;
     }
 
-    /*Contato*/
-    iframe {
+    .contatos iframe {
         width: 400px; 
         height: 350px;
     }
@@ -1224,6 +1021,7 @@ a {
     .imagem_informação img {
         height: auto;
     }
+    
 }
 @media screen and (max-width: 480px) {
     .seção_informação {
@@ -1235,16 +1033,6 @@ a {
     
 }
 @media screen and (max-width: 360px) {
-    .seção_informação {
-        height: auto;
-    }
-
-    .imagem_informação img {
-        height: auto;
-    }
-}
-
-@media screen and (max-width: 320px) {
     .seção_informação {
         height: auto;
     }
