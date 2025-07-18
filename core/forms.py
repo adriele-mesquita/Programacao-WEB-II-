@@ -1,5 +1,7 @@
 from django import forms
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from .models import (
     Produto, CategoriaProduto, Restaurante, Cliente, Pedido, EnderecoCliente, ItemPedido, Avaliacao, Funcionario, Pagamento 
 )
@@ -32,31 +34,51 @@ class ProdutoForm(forms.ModelForm):
 
 class ClienteForm(forms.ModelForm):
     
-    senha = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'input-field', 'placeholder': 'Senha'}), label="Senha")
+    username = forms.CharField(max_length=150, required=True, widget=forms.TextInput(attrs={'class': 'input-field', 'placeholder': 'Nome de Usuário'}))
+    password = forms.CharField(label='Senha', widget=forms.PasswordInput(attrs={'class': 'input-field', 'placeholder': 'Senha'}))
+    password_confirm = forms.CharField(label='Confirme a Senha', widget=forms.PasswordInput(attrs={'class': 'input-field', 'placeholder': 'Confirme a Senha'}))
 
     class Meta:
         model = Cliente
-        fields = ['nome', 'cpf', 'telefone', 'email', 'senha']
+        fields = ['username', 'password', 'password_confirm', 'nome', 'cpf', 'telefone', 'email']
         widgets = {
             'nome': forms.TextInput(attrs={'class': 'input-field', 'placeholder': 'Nome Completo'}),
             'cpf': forms.TextInput(attrs={'class': 'input-field', 'placeholder': 'CPF (apenas números)'}),
             'telefone': forms.TextInput(attrs={'class': 'input-field', 'placeholder': 'Telefone'}),
             'email': forms.EmailInput(attrs={'class': 'input-field', 'placeholder': 'E-mail'}),
-            
+           
         }
         labels = {
             'nome': 'Nome',
             'cpf': 'CPF',
             'telefone': 'Telefone',
             'email': 'E-mail',
-            'senha': 'Senha',
+            'username': 'Nome de Usuário',
+            'password': 'Senha',
+            'password_confirm': 'Confirme a Senha',
         }
 
-    def save(self, commit=True): 
-        cliente = super().save(commit=False) 
-        cliente.senha = make_password(self.cleaned_data["senha"]) 
+    def clean(self): 
+        cleaned_data = super().clean()
+        password = cleaned_data.get("password")
+        password_confirm = cleaned_data.get("password_confirm")
+
+        if password and password_confirm and password != password_confirm:
+            self.add_error('password_confirm', "As senhas não coincidem.")
+        return cleaned_data
+
+    def save(self, commit=True):
+        
+        user = User.objects.create_user(
+            username=self.cleaned_data["username"],
+            email=self.cleaned_data.get("email", ""), 
+            password=self.cleaned_data["password"]
+        )
+        
+        cliente = super().save(commit=False)
+        cliente.user = user 
         if commit:
-            cliente.save() 
+            cliente.save()
         return cliente
     
 class RestauranteForm(forms.ModelForm):

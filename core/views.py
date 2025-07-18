@@ -99,7 +99,7 @@ def cliente_create(request):
         if form.is_valid():
             cliente_service.create_cliente(form)
             messages.success(request, 'Cliente cadastrado com sucesso! Agora você pode fazer login.') 
-            return redirect('core:login') 
+            return redirect('core:login_view') 
         else:
             messages.error(request, 'Erro ao cadastrar cliente. Verifique os dados informados.') 
             

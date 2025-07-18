@@ -41,7 +41,7 @@
             align-items: center;
         }
         
-        #login, #register-selection, #register-funcionario {
+        #login, #register-selection {
             position: absolute;
             top: 180px; 
             width: 280px;
@@ -91,8 +91,8 @@
 
             <form id="login" class="input-group" method="post" action="{% url 'core:login_view' %}">
                 {% csrf_token %} 
-                <input type="text" class="input-field" name="username" placeholder="User" required> {# Adicione name="username" #}
-                <input type="password" class="input-field" name="password" placeholder="Senha" required> {# Adicione name="password" #}
+                <input type="text" class="input-field" name="username" placeholder="User" required>
+                <input type="password" class="input-field" name="password" placeholder="Senha" required> 
                 <div class="check-box"><input type="checkbox" class="check-box"><span>Lembre minha senha</span></div>
                <button type="submit" class="submit-btn">Entrar</button>
             </form>
